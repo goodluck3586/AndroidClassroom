@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#80CC28"/>
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="hh:mm:ss"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#00ff00"/>
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="hh:mm:ss a"
+        android:textColor="#F1511B"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+    <TextClock
+        android:id="@+id/textClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format24Hour="a hh:mm:ss"
+        android:format12Hour="a hh:mm:ss"
+        android:textColor="#00FFFF"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnGetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Time"/>
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="click time"
+        android:textSize="40dp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
