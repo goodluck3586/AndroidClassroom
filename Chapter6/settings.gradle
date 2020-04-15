@@ -1,0 +1,6 @@
+rootProject.name='Chapter6'
+include ':app'
+include ':exercise6-1'
+include ':exercise6-2'
+include ':countdowntimer1'
+include ':boardgametimer'
