@@ -12,7 +12,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Chronometer chronometer;
-    TextView textViewElapsedRealtime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnStart:
+                chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
                 break;
             case R.id.btnStop:
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnReset:
                 chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.stop();
                 break;
         }
-        //textViewElapsedRealtime.setText(Long.toString(SystemClock.elapsedRealtime()));
     }
 }

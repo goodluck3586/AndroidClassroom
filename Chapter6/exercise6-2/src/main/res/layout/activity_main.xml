@@ -35,12 +35,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reset"/>
-    <TextView
-        android:id="@+id/textViewElapsedRealtime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="elapsedRealtime"
-        android:gravity="center_horizontal"
-        android:textSize="30sp"/>
 
 </LinearLayout>
