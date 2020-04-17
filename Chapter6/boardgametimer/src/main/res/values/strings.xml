@@ -6,4 +6,5 @@
     <string name="second">초</string>
     <string name="reset">RESET</string>
     <string name="pause">PAUSE</string>
+    <string name="restart">RESTART</string>
 </resources>

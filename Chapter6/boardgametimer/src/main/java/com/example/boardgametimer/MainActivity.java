@@ -2,17 +2,15 @@ package com.example.boardgametimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     long fullTime = 40;
     long halfTime = fullTime/2;
-    boolean isPauseState = true;
+    boolean isPause = true;
     //endregion
 
     @Override
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         btnPauseRestart = findViewById(R.id.btnPauseRestart);
         textViewCopyright = findViewById(R.id.textViewCopyright);
         //endregion
-
         //region TextToSpeech 객체 생성
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -72,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region RESET 버튼 클릭
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "RESET 버튼은 롱~클릭으로 동작합니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //endregion
+
         //region RESET 버튼 롱클릭
         btnReset.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -80,18 +86,18 @@ public class MainActivity extends AppCompatActivity {
                 // 키보드와 editText의 Focus 없애기
                 if(editTextEnteredSeconds.hasFocus()){
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    imm.hideSoftInputFromWindow(editTextEnteredSeconds.getWindowToken(), 0);
                     editTextEnteredSeconds.clearFocus();
                 }
 
                 resetTimer();
                 CancelCountDownTimer();
 
-                String msg = String.format("Set to %d seconds.", fullTime);
+                @SuppressLint("DefaultLocale") String msg = String.format("Reset to %d seconds.", fullTime);
                 textToSpeech.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
 
                 btnTimerSwitch.setEnabled(true);
-                return false;
+                return true;
             }
         });
         //endregion
@@ -100,17 +106,17 @@ public class MainActivity extends AppCompatActivity {
         btnPauseRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isPauseState){
+                if(isPause){
                     textToSpeech.speak("PAUSE", TextToSpeech.QUEUE_FLUSH, null);
-                    btnPauseRestart.setText("RESTART");
+                    btnPauseRestart.setText(R.string.restart);
                     countDownTimer.cancel();
-                    isPauseState = false;
+                    isPause = false;
                 }else{
                     textToSpeech.speak("RESTART", TextToSpeech.QUEUE_FLUSH, null);
-                    btnPauseRestart.setText("PAUSE");
+                    btnPauseRestart.setText(R.string.pause);
                     countDownTimer = countDownTimer(Long.parseLong(btnTimerSwitch.getText().toString()));
                     countDownTimer.start();
-                    isPauseState = true;
+                    isPause = true;
                 }
             }
         });
@@ -126,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
 
         textViewCopyright.setVisibility(View.GONE);
         fullTime = Long.parseLong(editTextEnteredSeconds.getText().toString());
-        btnPauseRestart.setText("PAUSE");
-        isPauseState = true;
+        btnPauseRestart.setText(R.string.pause);
+        isPause = true;
         ChangeTextSize(fullTime);  // TextSize 조절
         btnTimerSwitch.setText(String.valueOf(fullTime));
         btnTimerSwitch.setBackgroundColor(Color.YELLOW);
