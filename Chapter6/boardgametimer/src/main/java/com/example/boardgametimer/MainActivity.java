@@ -21,13 +21,15 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //region 변수 선언
+    // 1. 위젯 참조 변수 선언
     EditText editTextEnteredSeconds;
     Button btnTimerSwitch, btnReset, btnPauseRestart;
     TextToSpeech textToSpeech;
     CountDownTimer countDownTimer;
     TextView textViewCopyright;
 
-    long fullTime = 40;
+    // 2. 카운트다운 시간 변수 선언
+    long fullTime = 12;
     long halfTime = fullTime/2;
     boolean isPause = true;
     //endregion
@@ -44,27 +46,18 @@ public class MainActivity extends AppCompatActivity {
         btnPauseRestart = findViewById(R.id.btnPauseRestart);
         textViewCopyright = findViewById(R.id.textViewCopyright);
         //endregion
-        //region TextToSpeech 객체 생성
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status==TextToSpeech.SUCCESS){
-                    int lang = textToSpeech.setLanguage(Locale.ENGLISH);  //Select Language
-                }
-            }
-        });
-        //endregion
+
+        createObjectTextToSpeech();  //TextToSpeech 객체 생성
 
         //region btnTimerSwitch 클릭
         btnTimerSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MediaPlayer.create(getApplicationContext(), R.raw.bell_sound).setVolume(0.1f, 0.1f);
-                MediaPlayer.create(getApplicationContext(), R.raw.bell_sound2).start();
-                resetTimer();
-                CancelCountDownTimer();
-                countDownTimer = countDownTimer(fullTime);
-                countDownTimer.start();
+                MediaPlayer.create(getApplicationContext(), R.raw.bell_sound2).start(); // 벨소리
+                cancelCountDownTimer();                                                 // 실행되던 CountDownTimer 멈추기
+                resetTimer();                                                           // CountDownTimer 초기화
+                countDownTimer = countDownTimer(fullTime);                              // 새로운 CountDownTimer 생성
+                countDownTimer.start();                                                 // CountDownTimer 동작 시작
             }
         });
         //endregion
@@ -82,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
         btnReset.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                // 타이머 멈추고, 초기화
+                cancelCountDownTimer();
+                resetTimer();
+
+                // 타이머 리셋 알림
+                String msg = String.format("Reset to %d seconds.", fullTime);
+                textToSpeech.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
 
                 // 키보드와 editText의 Focus 없애기
                 if(editTextEnteredSeconds.hasFocus()){
@@ -90,12 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     editTextEnteredSeconds.clearFocus();
                 }
 
-                resetTimer();
-                CancelCountDownTimer();
-
-                @SuppressLint("DefaultLocale") String msg = String.format("Reset to %d seconds.", fullTime);
-                textToSpeech.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-
+                // btnTimerSwitch 버튼 활성화
                 btnTimerSwitch.setEnabled(true);
                 return true;
             }
@@ -125,20 +120,27 @@ public class MainActivity extends AppCompatActivity {
 
      // 타이머 리셋
      private void resetTimer(){
+        // 입력된 시간(초) 체크
         if(editTextEnteredSeconds.getText().equals("")){
             Toast.makeText(this, "입력된 시간이 없습니다!!!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        textViewCopyright.setVisibility(View.GONE);
+        // editText에 입력된 시간(초)로 변수 초기화
         fullTime = Long.parseLong(editTextEnteredSeconds.getText().toString());
-        btnPauseRestart.setText(R.string.pause);
-        isPause = true;
-        ChangeTextSize(fullTime);  // TextSize 조절
+        halfTime = Math.round(fullTime/2);
+
+        // btnTimerSwitch 모양 초기화
         btnTimerSwitch.setText(String.valueOf(fullTime));
         btnTimerSwitch.setBackgroundColor(Color.YELLOW);
         btnTimerSwitch.setTextColor(Color.BLACK);
-        halfTime = Math.round(fullTime/2);
+        changeTextSize(fullTime);                           // 새로 입력된 시간(초)에 따라 TextSize 조절
+
+        // PAUSE/RESTART 버튼을 PAUSE 상태로 초기화
+        btnPauseRestart.setText(R.string.pause);
+        isPause = true;
+
+        textViewCopyright.setVisibility(View.GONE);     // 저작자 표시 숨기기
     }
 
     // CountDownTimer 생성 및 반환
@@ -147,31 +149,49 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 long currentTime = millisUntilFinished/1000;
-                ChangeTextSize(currentTime);  // TextSize 조절
+                changeTextSize(currentTime);  // TextSize 조절
+
+                // 시간이 절반 남았으면 경고음 재생
                 if(currentTime == halfTime){
                     MediaPlayer.create(getApplicationContext(), R.raw.warning_sound).start();
                 }
+
+                // 시간이 10초 이하로 남으면 Countdown 재생
                 if(currentTime <= 10){
                     btnTimerSwitch.setTextColor(Color.RED);
                     textToSpeech.speak(String.valueOf(currentTime), TextToSpeech.QUEUE_FLUSH, null);  //Text Convert to speech
                 }
+
+                // 시간(초) 표시
                 btnTimerSwitch.setText(String.valueOf(millisUntilFinished / 1000));
             }
 
             @Override
             public void onFinish() {
-                MediaPlayer.create(getApplicationContext(), R.raw.gameover_sound).start();
-                btnTimerSwitch.setTextColor(Color.DKGRAY);
-                btnTimerSwitch.setBackgroundColor(Color.GRAY);
+                countDownTimer.cancel();    // 타이머 멈추기
+                MediaPlayer.create(getApplicationContext(), R.raw.gameover_sound).start();  // Game Over 사운드 재생
+
+                // btnTimerSwitch 버튼 모양 수정
+                btnTimerSwitch.setTextColor(Color.GRAY);
+                btnTimerSwitch.setBackgroundColor(Color.DKGRAY);
+
+                // btnTimerSwitch 버튼 비활성화
                 btnTimerSwitch.setEnabled(false);
-                countDownTimer.cancel();
+
+                // 저작자 문구 표시
                 textViewCopyright.setVisibility(View.VISIBLE);
             }
         };
     }
 
+    // countdownTimer cancel
+    private void cancelCountDownTimer(){
+        if(countDownTimer != null)
+            countDownTimer.cancel();
+    }
+
     // btnTimerSwitch 텍스트 사이즈 조정
-    private void ChangeTextSize(long seconds){
+    private void changeTextSize(long seconds){
         if(seconds>=100){
             btnTimerSwitch.setTextSize(TypedValue.COMPLEX_UNIT_SP, 200);
         }else if(seconds>=10){
@@ -181,12 +201,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // countdownTimer cancel
-    private void CancelCountDownTimer(){
-        if(countDownTimer != null)
-            countDownTimer.cancel();
+    // TextToSpeech 객체 생성
+    private void createObjectTextToSpeech(){
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                textToSpeech.setLanguage(Locale.ENGLISH);  //Select Language
+            }
+        });
     }
-
 }
 
 
