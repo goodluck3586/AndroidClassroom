@@ -24,14 +24,17 @@ public class MainActivity extends AppCompatActivity {
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewFlipper.showPrevious();
+//                viewFlipper.showPrevious();
+                viewFlipper.setFlipInterval(1000);
+                viewFlipper.startFlipping();
             }
         });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewFlipper.showNext();
+//                viewFlipper.showNext();
+                viewFlipper.stopFlipping();
             }
         });
     }

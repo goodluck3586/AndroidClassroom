@@ -21,7 +21,11 @@
             <option value="$PROJECT_DIR$/exercise6-15_viewflipper" />
             <option value="$PROJECT_DIR$/exercise6-2" />
             <option value="$PROJECT_DIR$/exercise6-3" />
+            <option value="$PROJECT_DIR$/fragment01" />
+            <option value="$PROJECT_DIR$/fragment02" />
             <option value="$PROJECT_DIR$/practice6-1" />
+            <option value="$PROJECT_DIR$/practice6-2" />
+            <option value="$PROJECT_DIR$/viewpager" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
