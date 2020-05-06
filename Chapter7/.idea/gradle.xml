@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/exercise01_optionmenu" />
+            <option value="$PROJECT_DIR$/exercise02_optionmenu" />
+            <option value="$PROJECT_DIR$/exercise03_contextmenu" />
+            <option value="$PROJECT_DIR$/practice7-1" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

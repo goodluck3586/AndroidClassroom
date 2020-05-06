@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         // xml을 menu객체로 생성
         menuInflater.inflate(R.menu.option_menu, menu);
 
+        // Java 코드에서 메뉴 아이템 추가
+        menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, "Java 코드에서 추가한 메뉴1");
+        menu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "Java 코드에서 추가한 메뉴2");
+
         return true;
     }
 
@@ -50,8 +54,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.subItem2:
                 textView.setText("서브메뉴2 선택됨.");
                 break;
+            case Menu.FIRST:
+                textView.setText("Java코드로 추가한 아이템1 선택됨.");
+                break;
+            case Menu.FIRST+1:
+                textView.setText("Java코드로 추가한 아이템2 선택됨.");
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
