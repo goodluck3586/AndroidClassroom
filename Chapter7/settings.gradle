@@ -1,0 +1,3 @@
+rootProject.name='Chapter7'
+include ':app'
+include ':exercise01_optionmenu'
