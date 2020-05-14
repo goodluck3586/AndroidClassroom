@@ -1,10 +1,12 @@
 package com.example.exercise03_contextmenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        MenuInflater menuInflater = getMenuInflater();
+        MenuInflater menuInflater = getMenuInflater();  // xml 코드를 객채화하기 위한 객체
 
         switch (v.getId()){
             case R.id.textView:
@@ -38,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     // 컨텍스트 메뉴 아이템 선택에 따른 이벤트 처리
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.textViewItem1:
+                textView.setText("메뉴1 선택.");
+                break;
+            case R.id.textViewItem2:
+                textView.setText("메뉴2 선택.");
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
 }
