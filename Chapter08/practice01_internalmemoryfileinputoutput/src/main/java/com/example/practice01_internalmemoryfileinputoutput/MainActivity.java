@@ -10,9 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -124,9 +128,34 @@ public class MainActivity extends AppCompatActivity {
         };
         //endregion
 
-        // 내장 메모리 파일 입출력 처리 3 (BufferedWriter, BufferedReader)
+        //region 내장 메모리 파일 입출력 처리 3 (BufferedWriter, BufferedReader)
+        // 문자를 쓰고 읽을 때 버퍼(배열)을 제공하는 보조스트림(기본사이즈 8,192 바이트 버퍼)
+        View.OnClickListener listener3 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btnWrite:
+                        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(getFileStreamPath("myFile.txt"), false))) {
+                            bufferedWriter.write(editText.getText().toString());
+                            editText.setText(null);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
 
-        btnWrite.setOnClickListener(listener2);
-        btnRead.setOnClickListener(listener2);
+                    case R.id.btnRead:
+                        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(getFileStreamPath("myFile.txt")))) {
+                            textView.setText(bufferedReader.readLine());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+            }
+        };
+        //endregion
+
+        btnWrite.setOnClickListener(listener3);
+        btnRead.setOnClickListener(listener3);
     }
 }

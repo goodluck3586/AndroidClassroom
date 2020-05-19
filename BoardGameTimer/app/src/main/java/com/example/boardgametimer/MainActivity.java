@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    //region 변수 선언
+    //region 참조변수 선언
     // 1. 위젯 참조 변수 선언
     EditText editTextEnteredSeconds;
     Button btnTimerSwitch, btnReset, btnPauseRestart;
