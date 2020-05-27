@@ -1,6 +1,4 @@
-package com.example.ex02_practice10_2;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.ex03_diy10_2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ResultActivity extends AppCompatActivity {
 
