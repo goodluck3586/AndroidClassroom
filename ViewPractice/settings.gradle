@@ -1,0 +1,6 @@
+rootProject.name='ViewPractice'
+include ':app'
+include ':eventprocesspracitce'
+include ':interface_practice'
+include ':calculator'
+include ':lecture01_kkangsam91'

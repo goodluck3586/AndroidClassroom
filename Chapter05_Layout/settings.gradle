@@ -1,0 +1,4 @@
+rootProject.name='Chapter05_Layout'
+include ':app'
+include ':practice5-4'
+include ':practice5-5'

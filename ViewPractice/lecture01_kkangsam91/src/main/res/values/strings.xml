@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">lecture01_kkangsam91</string>
+    <string name="Btn_Visible">사진 보이기</string>
+    <string name="Btn_Invisible">사진 감추기</string>
+</resources>

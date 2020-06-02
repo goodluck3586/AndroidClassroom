@@ -1,0 +1,4 @@
+rootProject.name='Test'
+include ':app'
+include ':makeself_fragment'
+include ':nosetting'

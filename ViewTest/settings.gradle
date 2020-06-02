@@ -1,0 +1,3 @@
+rootProject.name='ViewTest'
+include ':app'
+include ':calculator'
