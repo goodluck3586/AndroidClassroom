@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // adapter를 ListView에 연결한다.
         listView.setAdapter(adapter);
+
+        // ListView의 아이템을 클릭했을 때 이벤트 처리
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                textView.setText(arrayList.get(position));
+            }
+        });
 
         btnAdd.setOnClickListener(this);
         btnModify.setOnClickListener(this);
