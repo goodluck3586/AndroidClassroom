@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.Rating;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -30,16 +31,19 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textView.setText(String.valueOf(progress));
-                progressBar.setProgress(progress);
-                ratingBar.setRating(progress/20);
+                textView.setVisibility(View.INVISIBLE);
+                textView.setText(String.valueOf(progress));     // 진행 상태값을 숫자로 화면에 출력
+                progressBar.setProgress(progress);              // ProgressBar 상태 변경
+                ratingBar.setRating(progress/20);               // RatingBar 상태 변경
             }
 
+            // 처음 터치할 때 발생
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(MainActivity.this, "onStartTrackingTouch", Toast.LENGTH_SHORT).show();
             }
 
+            // 클릭한 터치를 떼면 발생
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(MainActivity.this, "onStopTrackingTouch", Toast.LENGTH_SHORT).show();

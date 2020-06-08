@@ -1,0 +1,21 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/mainEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SecondActivity로 넘길 ㄴ ㅐ용 입력">
+    </EditText>
+
+    <Button
+        android:id="@+id/goToSecondActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SecondActivity 열기">
+    </Button>
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+rootProject.name='Chapter11'
+include ':app'
+include ':ex01_listview'
+include ':ex02_listview'
+include ':ex03_listview_addmodifydelete'
+include ':ex04_listview_simpleadapter'
+include ':ex05_listview_simpleadapter'
+include ':ex06_listview_customadapter'

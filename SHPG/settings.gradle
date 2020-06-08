@@ -1,0 +1,6 @@
+rootProject.name='SHPG'
+include ':app'
+include ':app:calculatorHard'
+include ':app:calculatorNormal'
+include ':app:calculatorEasy'
+include ':app:intentshpg'

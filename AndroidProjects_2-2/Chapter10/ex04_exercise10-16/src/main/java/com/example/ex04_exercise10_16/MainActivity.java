@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editTextNum1, editTextNum2;
     Button btnCalculate;
+    TextView textViewResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         editTextNum1 = findViewById(R.id.editTextNum1);
         editTextNum2 = findViewById(R.id.editTextNum2);
         btnCalculate = findViewById(R.id.btnCalculate);
+        textViewResult = findViewById(R.id.textViewResult);
 
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode==0 && resultCode == RESULT_OK){
             int hap = data.getIntExtra("Hap", 0);
-            Toast.makeText(this, "합계: "+hap, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "합계: "+hap, Toast.LENGTH_SHORT).show();
+            textViewResult.setText(String.valueOf(hap));
         }
     }
 }

@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView textView;
     ListView listView;
     Button btnAdd, btnModify, btnDelete;
-    ArrayList<String> arrayList = getArrayListData();
+
+    ArrayList<String> arrayList = getArrayListData(5);
     ArrayAdapter<String> adapter;
 
     @Override
@@ -64,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // 리스트뷰에 들어갈 데이터 생성
-    private ArrayList<String> getArrayListData() {
+    private ArrayList<String> getArrayListData(int count) {
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (int i=0; i<5; i++){
+        for (int i=0; i<count; i++){
             arrayList.add("리스트 아이템 "+(i+1));
         }
         return arrayList;
