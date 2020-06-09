@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/ex04_listview_simpleadapter" />
             <option value="$PROJECT_DIR$/ex05_listview_simpleadapter" />
             <option value="$PROJECT_DIR$/ex06_listview_customadapter01" />
+            <option value="$PROJECT_DIR$/ex07_listview_customadapter02" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
